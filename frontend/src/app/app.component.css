@@ -1,0 +1,20 @@
+.flexbox {
+    display: flex;
+    justify-content: center;
+  }
+
+  h5 {
+    font-size: 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 200%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }

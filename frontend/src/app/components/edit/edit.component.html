@@ -1,0 +1,37 @@
+<div>
+  <br>
+  <mat-card>
+    <section class="mat-typography">
+      <h3>Update Food</h3>
+    </section>
+    <mat-divider></mat-divider>
+    <br>
+    <form [formGroup]="updateForm" class="edit-form">
+      <mat-form-field class="field-full-width">
+        <input matInput placeholder="Food Title" formControlName="title" #title>
+      </mat-form-field>
+      <mat-form-field class="field-full-width">
+        <input matInput placeholder="Servings" formControlName="servings" #servings>
+      </mat-form-field>
+      <mat-form-field>
+          <mat-select placeholder="Diet" formControlName="diet" #diet>
+            <mat-option value="Vegetarian">Vegetarian</mat-option>
+            <mat-option value="GF">GF</mat-option>
+            <mat-option value="Kosher">Kosher</mat-option>
+          </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Meal" formControlName="meal" #meal>
+          <mat-option value="Breakfast">Breakfast</mat-option>
+          <mat-option value="Lunch">Lunch</mat-option>
+          <mat-option value="Dinner">Dinner</mat-option>
+          <mat-option value="Snack">Snack</mat-option>
+        </mat-select>
+    </mat-form-field>
+      <mat-divider></mat-divider>
+      <br><br>
+      <button mat-raised-button color="accent" routerLink="/list">Back</button>&nbsp;
+      <button type="submit" (click)="updateFood(title.value, servings.value, diet.value, meal.value)" [disabled]="updateForm.pristine || updateForm.invalid" mat-raised-button color="primary">Save</button>
+    </form>
+  </mat-card>
+</div>

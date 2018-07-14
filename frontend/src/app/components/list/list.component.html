@@ -1,0 +1,63 @@
+<div>
+  <br>
+  <mat-card>
+    <button mat-raised-button color="primary" routerLink="/create">Create New Food</button>
+    <br><br>
+    <mat-divider></mat-divider>
+    <br>
+    <table mat-table [dataSource]="foods">
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Title</th>
+        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="servings">
+        <th mat-header-cell *matHeaderCellDef>Servings</th>
+        <td mat-cell *matCellDef="let element"> {{element.servings}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="diet">
+        <th mat-header-cell *matHeaderCellDef>Diet</th>
+        <td mat-cell *matCellDef="let element"> {{element.diet}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="meal">
+        <th mat-header-cell *matHeaderCellDef>Meal</th>
+        <td mat-cell *matCellDef="let element"> {{element.meal}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="calories">
+        <th mat-header-cell *matHeaderCellDef>Calories(total)</th>
+        <td mat-cell *matCellDef="let element"> {{element.calories}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="protein">
+        <th mat-header-cell *matHeaderCellDef>Protein(grams total)</th>
+        <td mat-cell *matCellDef="let element"> {{element.protein}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="fat">
+        <th mat-header-cell *matHeaderCellDef>Fat(grams total)</th>
+        <td mat-cell *matCellDef="let element"> {{element.fat}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="carbs">
+        <th mat-header-cell *matHeaderCellDef>Carbs(grams total)</th>
+        <td mat-cell *matCellDef="let element"> {{element.carbs}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef class="mat-column-right">Delete</th>
+        <td mat-cell *matCellDef="let element" class="mat-column-right">
+          <!-- <button mat-button color="primary" (click)="editFood(element._id)">Edit</button> -->
+          <button mat-button color="warn" (click)="deleteFood(element._id)">Delete</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </mat-card>
+  <!-- <button (click)="totalMacros()">Total</button> -->
+</div>

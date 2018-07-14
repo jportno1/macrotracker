@@ -1,0 +1,40 @@
+<div>
+  <br>
+  <mat-card>
+    <section class="mat-typography">
+      <h3>Create A New Food</h3>
+    </section>
+    <mat-divider></mat-divider>
+    <br>
+    <form [formGroup]="createForm" class="create-form">
+      <mat-form-field class="field-full-width">
+        <input matInput placeholder="Food Title" formControlName="title" #title>
+        <!--<mat-error *ngIf="createForm.controls['title'].errors.required">
+          Must have title
+        </mat-error>-->
+      </mat-form-field>
+      <mat-form-field class="field-full-width">
+        <input matInput placeholder="Servings" formControlName="servings" #servings>
+      </mat-form-field>
+      <mat-form-field>
+          <mat-select placeholder="Diet" formControlName="diet" #diet>
+            <mat-option value="Vegetarian">Vegetarian</mat-option>
+            <mat-option value="GF">GF</mat-option>
+            <mat-option value="Kosher">Kosher</mat-option>
+          </mat-select>
+      </mat-form-field>
+      <mat-divider></mat-divider>
+      <mat-form-field>
+        <mat-select placeholder="Meal" formControlName="meal" #meal>
+          <mat-option value="Breakfast">Breakfast</mat-option>
+          <mat-option value="Lunch">Lunch</mat-option>
+          <mat-option value="Dinner">Dinner</mat-option>
+          <mat-option value="Snack">Snack</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br><br>
+      <button mat-raised-button color="accent" routerLink="/list">Back</button>&nbsp;
+      <button type="submit" (click)="addFood(title.value, servings.value, diet.value, 'dinner')" [disabled]="createForm.pristine || createForm.invalid" mat-raised-button color="primary">Save</button>
+    </form>
+  </mat-card>
+</div>
