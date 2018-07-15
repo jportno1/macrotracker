@@ -19,6 +19,65 @@ const connection = mongoose.connection;
 
 connection.once('open', () => {
     console.log('MongoDB database connection established successfully!');
+    
+    Food.collection.drop();
+
+    Food.create([{
+        "meal" : "Snack",
+        "protein" : 6.43,
+        "calories" : 221.43,
+        "carbs" : 24.29,
+        "fat" : 10.71,
+        "title" : "mac and cheese",
+        "servings" : 2,
+        "diet" : "Vegetarian"
+    },
+    {
+        "meal" : "Snack",
+        "protein" : 0.82,
+        "calories" : 60,
+        "carbs" : 14.98,
+        "fat" : 0.38,
+        "title" : "mango",
+        "servings" : 1,
+        "diet" : "GF",
+    },
+    {
+        "meal" : "Dinner",
+        "protein" : 4.18,
+        "calories" : 284,
+        "carbs" : 46.02,
+        "fat" : 9.2,
+        "title" : "chocolate pudding",
+        "servings" : 2,
+        "diet" : "Kosher",
+    },
+    {
+        "meal" : "Lunch",
+        "protein" : 0.26,
+        "calories" : 52,
+        "carbs" : 13.81,
+        "fat" : 0.17,
+        "title" : "apple",
+        "servings" : 1,
+        "diet" : "Vegetarian",
+    },
+    {
+        "meal" : "Breakfast",
+        "protein" : 6.4,
+        "calories" : 227,
+        "carbs" : 28.3,
+        "fat" : 9.7,
+        "title" : "pancake",
+        "servings" : 1,
+        "diet" : "Kosher",
+    }])
+    .then(() => {
+    console.log('Database has been seeded!');
+    })
+    .catch((err) => {
+    console.log('Something went wrong while seeding ', err);
+    })
 });
 
 
