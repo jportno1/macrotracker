@@ -1,21 +1,37 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
+// import express from 'express';
+// import cors from 'cors';
+// import bodyParser from 'body-parser';
+// import mongoose from 'mongoose';
 
 
-import Food from './models/Food';
+// import Food from './models/Food';
+
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+const Food = require('./models/Food');
+
+const path = require('path');
+
 
 const app = express();
 const router = express.Router();
 const axios = require('axios');
 
+
+
 app.use(cors());
 app.use(bodyParser.json());
+
+
 
 mongoose.connect('mongodb://localhost:27017/foods');
 
 const connection = mongoose.connection;
+
+app.use(express.static(path.join(__dirname, './frontend/dist/frontend/')));
 
 connection.once('open', () => {
     console.log('MongoDB database connection established successfully!');
@@ -161,7 +177,10 @@ router.route('/foods/delete/:id').get((req, res) => {
     })
 })
 
+// router.route('/').get((req, res) => {
+//     res.sendFile('./frontend/dist/frontend/index.html')
+// })
 
 app.use('/', router);
 
-app.listen(4000, () => console.log('Express server running on port 4000'));
+app.listen(3300, () => console.log('Express server running on port 3300'));

@@ -1,5 +1,6 @@
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let Food = new Schema({
@@ -34,4 +35,5 @@ let Food = new Schema({
     }
 });
 
-export default mongoose.model('Food', Food);
+// export default mongoose.model('Food', Food);
+module.exports = mongoose.model('Food', Food);
