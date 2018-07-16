@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 
 
 
-mongoose.connect('mongodb://localhost:27017/foods');
+mongoose.connect( process.env.MONGODB_URI || 'mongodb://localhost:27017/foods');
 
 const connection = mongoose.connection;
 
@@ -119,7 +119,7 @@ router.route('/foods/:id').get((req, res) => {
 router.route('/foods/add').post((req, res) => {
     const encodedTitle = encodeURI(req.body.title)
     
-    const lookup = axios.get(`https://api.edamam.com/api/food-database/parser?ingr=${encodedTitle}&app_id=c9549d75&app_key=cc1dbe342a7504760425ef22b453e28d`)
+    const lookup = axios.get(`https://api.edamam.com/api/food-database/parser?ingr=${encodedTitle}&app_id=c9549d75&app_key=${process.env.API_KEY}`)
     .then((lookup) => {
         req.body.protein = Math.round(req.body.servings * lookup.data.hints[0].food.nutrients.PROCNT * 100) / 100;;
         req.body.calories = Math.round(req.body.servings * lookup.data.hints[0].food.nutrients.ENERC_KCAL * 100) / 100;;

@@ -6,7 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FoodService {
 
-  uri = 'http://localhost:3300';
+  // uri = 'http://localhost:3300';
+  uri = 'http://macrotracker-jp.herokuapp.com/3300';
 
   constructor(private http: HttpClient) { }
 
