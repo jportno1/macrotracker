@@ -31,13 +31,12 @@ mongoose.connect( process.env.MONGODB_URI || 'mongodb://localhost:27017/foods');
 
 const connection = mongoose.connection;
 
-app.use(express.static(path.join(__dirname, './frontend/dist/frontend/')));
 
 connection.once('open', () => {
     console.log('MongoDB database connection established successfully!');
     
     Food.collection.drop();
-
+    
     Food.create([{
         "meal" : "Snack",
         "protein" : 6.43,
@@ -89,10 +88,10 @@ connection.once('open', () => {
         "diet" : "Kosher",
     }])
     .then(() => {
-    console.log('Database has been seeded!');
+        console.log('Database has been seeded!');
     })
     .catch((err) => {
-    console.log('Something went wrong while seeding ', err);
+        console.log('Something went wrong while seeding ', err);
     })
 });
 
@@ -101,18 +100,18 @@ connection.once('open', () => {
 router.route('/foods').get((req, res) => {
     Food.find((err, foods) => {
         if (err)
-            console.log(err);
+        console.log(err);
         else
-            res.json(foods);
+        res.json(foods);
     });
 });
 
 router.route('/foods/:id').get((req, res) => {
     Food.findById(req.params.id, (err, food) => {
         if (err)
-            console.log(err);
+        console.log(err);
         else
-            res.json(food);
+        res.json(food);
     });
 });
 
@@ -125,25 +124,25 @@ router.route('/foods/add').post((req, res) => {
         req.body.calories = Math.round(req.body.servings * lookup.data.hints[0].food.nutrients.ENERC_KCAL * 100) / 100;;
         req.body.carbs = Math.round(req.body.servings * lookup.data.hints[0].food.nutrients.CHOCDF * 100) / 100;;
         req.body.fat = Math.round(req.body.servings * lookup.data.hints[0].food.nutrients.FAT * 100) / 100;;
-
+        
         let food = new Food(req.body);
         food.save()
-            .then((food) => {
-                res.status(200).json({'food': 'Added successfully'});
-            })
-            .catch((err) => {
-                res.status(400).send('Failed to create new record');
-            });
+        .then((food) => {
+            res.status(200).json({'food': 'Added successfully'});
+        })
+        .catch((err) => {
+            res.status(400).send('Failed to create new record');
+        });
     })
     .catch(((err) => {console.log(err)}))
     
-
+    
 });
 
 router.route('/foods/update/:id').post((req, res) => {
     Food.findById(req.params.id, (err, food) => {
         if (!food)
-            return next(new Error('Could not load document'));
+        return next(new Error('Could not load document'));
         else {
             food.title = req.body.title;
             food.servings = req.body.servings;
@@ -153,12 +152,12 @@ router.route('/foods/update/:id').post((req, res) => {
             food.fat = Math.round(req.body.servings * req.body.fat * 100) / 100;
             food.carbs = Math.round(req.body.servings * req.body.carbs * 100) / 100;
             food.calories = Math.round(req.body.servings * req.body.calories * 100) / 100;
-
-
-
-
             
-
+            
+            
+            
+            
+            
             food.save().then(food => {
                 res.json('Update done');
             }).catch(err => {
@@ -171,16 +170,17 @@ router.route('/foods/update/:id').post((req, res) => {
 router.route('/foods/delete/:id').get((req, res) => {
     Food.findByIdAndRemove({_id: req.params.id}, (err, food) => {
         if (err)
-            res.json(err);
+        res.json(err);
         else
-            res.json('Remove successfully');
+        res.json('Remove successfully');
     })
 })
 
 // router.route('/').get((req, res) => {
-//     res.sendFile('./frontend/dist/frontend/index.html')
-// })
-
-app.use('/', router);
-
-app.listen(process.env.PORT || 3300, () => console.log('Express server running on port 3300'));
+    //     res.sendFile('./frontend/dist/frontend/index.html')
+    // })
+    
+    app.use(express.static(path.join(__dirname, './frontend/dist/frontend/')));
+    app.use('/', router);
+    
+    app.listen(process.env.PORT || 3300, () => console.log('Express server running on port 3300'));
