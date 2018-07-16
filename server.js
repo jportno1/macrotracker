@@ -182,9 +182,10 @@ router.route('/foods/delete/:id').get((req, res) => {
     
     app.use(express.static(path.join(__dirname, './frontend/dist/frontend/')));
     app.use('/', router);
-    // app.use('/', (req, res) => {
-    //         res.send('it works!!!')
-    // })
+
+    app.get('/*', (req, res) => {
+        res.sendFile(path.join(__dirname, './frontend/dist/frontend/'));
+    });
     const port = process.env.PORT || 3300;
 
     app.listen(port, () => console.log('Express server running on port: ', port));
