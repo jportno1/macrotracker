@@ -183,4 +183,4 @@ router.route('/foods/delete/:id').get((req, res) => {
 
 app.use('/', router);
 
-app.listen(3300, () => console.log('Express server running on port 3300'));
+app.listen(process.env.PORT || 3300, () => console.log('Express server running on port 3300'));
